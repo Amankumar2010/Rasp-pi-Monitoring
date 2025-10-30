@@ -1,1 +1,58 @@
 
+This is a minimal Alertmanager config.
+
+global:
+
+This is where you would put your Slack API URL or SMTP settings
+
+slack_api_url: '<your_slack_webhook_url>'
+
+smtp_smarthost: 'https://www.google.com/search?q=smtp.example.com:587'
+
+...
+
+route:
+
+The default receiver
+
+receiver: 'null-receiver'
+
+Group alerts by job and alertname
+
+group_by: ['job', 'alertname']
+
+How long to wait to buffer alerts of the same group
+
+group_wait: 30s
+
+How long to wait before sending a new batch of alerts
+
+group_interval: 5m
+
+How long to wait before re-sending an alert
+
+repeat_interval: 4h
+
+receivers:
+
+name: 'null-receiver'
+
+This receiver does nothing. It's a placeholder.
+
+Replace this with your actual notification channels
+
+like Slack, PagerDuty, or email.
+
+--- Example Slack Receiver ---
+
+- name: 'slack-notifications'
+
+slack_configs:
+
+- channel: '#alerts'
+
+send_resolved: true
+
+title: '{{ .CommonAnnotations.summary }}'
+
+text: '{{ .CommonAnnotations.description }}'
