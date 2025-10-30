@@ -1,1 +1,26 @@
+A simple example alert to test your setup
 
+groups:
+
+name: example_alerts
+rules:
+
+alert: InstanceDown
+expr: up == 0
+for: 1m
+labels:
+severity: 'critical'
+annotations:
+summary: 'Instance {{ $labels.instance }} down'
+description: '{{ $labels.job }} at {{ $labels.instance }} has been down for more than 1 minute.'
+
+This alert will fire if your node_exporter is down
+
+alert: NodeExporterDown
+expr: up{job="node_exporter"} == 0
+for: 1m
+labels:
+severity: 'critical'
+annotations:
+summary: 'Node Exporter down (instance {{ $labels.instance }})'
+description: 'The node_exporter at {{ $labels.instance }} has been down for more than 1 minute.'
