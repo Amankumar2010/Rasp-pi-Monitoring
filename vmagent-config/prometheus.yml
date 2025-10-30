@@ -1,1 +1,40 @@
 
+This is your new scrape config, combining your old jobs
+
+with the new monitoring jobs.
+
+global:
+scrape_interval: 15s
+evaluation_interval: 15s
+
+This loads your alert rules
+
+rule_files:
+
+"/config/alert.rules.yml"
+
+scrape_configs:
+
+--- Your existing node_exporter job ---
+
+job_name: 'node_exporter'
+static_configs:
+
+targets: ['100.65.146.110:9100']
+
+--- New jobs to monitor the monitoring stack itself ---
+
+job_name: 'victoriametrics'
+static_configs:
+
+targets: ['victoriametrics:8428']
+
+job_name: 'vmagent'
+static_configs:
+
+targets: ['vmagent:8427']
+
+job_name: 'alertmanager'
+static_configs:
+
+targets: ['alertmanager:9093']
