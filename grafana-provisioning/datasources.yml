@@ -1,1 +1,21 @@
 
+This file automatically adds VictoriaMetrics to Grafana
+
+apiVersion: 1
+
+datasources:
+
+name: 'VictoriaMetrics'
+type: 'prometheus'
+access: 'proxy'
+
+URL is the internal Docker service name on 'monitor-net'
+
+url: 'http://victoriametrics:8428'
+isDefault: true
+jsonData:
+prometheusType: 'Prometheus'
+httpMethod: 'POST'
+basicAuth: false
+version: 1
+editable: true
